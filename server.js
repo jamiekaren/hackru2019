@@ -26,7 +26,17 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
+// Routes
+app.get("/", function (req, res) {
+  res.render(path.join(__dirname, "views/pages/index.ejs"));
+})
+// app.get("/news", function (req, res) {
+//   res.render(path.join(__dirname, "views/pages/news.ejs"));
+// })
 
+app.get("/search", function (req, res) {
+  res.render(path.join(__dirname, "views/pages/search.ejs"));
+})
 
 // Connect to the Mongo DB
 // var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/thetargumstewdb";
@@ -50,8 +60,12 @@ app.get("/news", function(req,res) {
 app.get("/favorites", function(req,res) {
   res.render(path.join(__dirname, "views/pages/favorite.ejs"));
 })
+
+app.listen(PORT, function() {
+  console.log("Server listening on: http://localhost:" + PORT)
+})
 // A GET route for scraping the echoJS website
-app.get("/scrape", function(req, res) {
+// app.get("/scrape", function(req, res) {
 
   // First, we grab the body of the html with axios
 //   axios.get("https://www.dailytargum.com/section/news").then(function(response) {
@@ -193,9 +207,4 @@ app.get("/scrape", function(req, res) {
     // save the new note that gets posted to the Notes collection
     // then find an article from the req.params.id
     // and update it's "note" property with the _id of the new note
-  });
-// Start the server
-app.listen(PORT, function() {
-  // Log (server-side) when our server has started
-  console.log("Server listening on: http://localhost:" + PORT);
-});
+
