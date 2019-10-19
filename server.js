@@ -8,8 +8,8 @@ var path = require("path");
 var axios = require("axios");
 // var cheerio = require("cheerio");
 
-// Require all models
-var db = require("./models");
+// // Require all models
+// var db = require("./models");
 
 var PORT = process.env.PORT || 8080;
 
