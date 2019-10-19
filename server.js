@@ -1,12 +1,12 @@
 var express = require("express");
 var logger = require("morgan");
-var mongoose = require("mongoose");
+// var mongoose = require("mongoose");
 var path = require("path");
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
 // It works on the client and on the server
-var axios = require("axios");
-var cheerio = require("cheerio");
+// var axios = require("axios");
+// var cheerio = require("cheerio");
 
 // Require all models
 var db = require("./models");
@@ -29,23 +29,15 @@ app.use(express.static("public"));
 
 
 // Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/thetargumstewdb";
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/thetargumstewdb";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
-mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
-// mongoose.connect("mongodb://localhost/thetargumstewdb", { useNewUrlParser: true });
-
-// mongoose.connect('mongodb://localhost/thetargumstewdb').then(() => {
-// console.log("Connected to Database");
-// }).catch((err) => {
-//     console.log("Not Connected to Database ERROR! ", err);
-// });
+// mongoose.Promise = Promise;
+// mongoose.connect(MONGODB_URI);
 
 
 
-mongoose.connect(MONGODB_URI);
 
 // Routes
 app.get("/", function(req,res) {
@@ -62,71 +54,71 @@ app.get("/favorites", function(req,res) {
 app.get("/scrape", function(req, res) {
 
   // First, we grab the body of the html with axios
-  axios.get("https://www.dailytargum.com/section/news").then(function(response) {
+//   axios.get("https://www.dailytargum.com/section/news").then(function(response) {
 
-    db.Article.remove()
-    .then(function(dbArticle) {
-      // View the added result in the console
-      console.log(dbArticle);
-    })
-    .catch(function(err) {
-      // If an error occurred, log it
-      console.log(err);
-    });
-    // Then, we load that into cheerio and save it to $ for a shorthand selector
-    var $ = cheerio.load(response.data);
+//     db.Article.remove()
+//     .then(function(dbArticle) {
+//       // View the added result in the console
+//       console.log(dbArticle);
+//     })
+//     .catch(function(err) {
+//       // If an error occurred, log it
+//       console.log(err);
+//     });
+//     // Then, we load that into cheerio and save it to $ for a shorthand selector
+//     var $ = cheerio.load(response.data);
 
-    // Now, we grab every h2 within an article tag, and do the following:
-    $(".art-left").each(function(i, element) {
-      // Save an empty result object
+//     // Now, we grab every h2 within an article tag, and do the following:
+//     $(".art-left").each(function(i, element) {
+//       // Save an empty result object
     
 
-      // Add the text and href of every link, and save them as properties of the result object
-      var image = $(element).find(".col-md-4")
-        .find(".image-container")
-        .find("a").find('img').attr('src');
-        var link = $(element).find(".col-md-4")
-        .find(".image-container").find("a")
-        .attr("href")
-      var author = $(element).find(".col-md-8")
-        .find(".dateline")
-        .find("a").text();
-        var abstract = $(element).find(".col-md-8")
+//       // Add the text and href of every link, and save them as properties of the result object
+//       var image = $(element).find(".col-md-4")
+//         .find(".image-container")
+//         .find("a").find('img').attr('src');
+//         var link = $(element).find(".col-md-4")
+//         .find(".image-container").find("a")
+//         .attr("href")
+//       var author = $(element).find(".col-md-8")
+//         .find(".dateline")
+//         .find("a").text();
+//         var abstract = $(element).find(".col-md-8")
 
-        .find(".article-abstract").text()
-       var timestamp = $(element).find(".col-md-8")
-         .find(".dateline")
-        .find(".time-since").text();
-        var title = $(element).find(".col-md-8")
-        .find(".headline").find("a")
-        .text()
+//         .find(".article-abstract").text()
+//        var timestamp = $(element).find(".col-md-8")
+//          .find(".dateline")
+//         .find(".time-since").text();
+//         var title = $(element).find(".col-md-8")
+//         .find(".headline").find("a")
+//         .text()
 
-        var result = {
-            image: image,
-            link: link,
-            author: author,
-            abstract: abstract,
-            timestamp: timestamp,
-            title: title
-        }
-console.log(result)
-      // Create a new Article using the `result` object built from scraping
-      db.Article.create(result)
-        .then(function(dbArticle) {
-          // View the added result in the console
-          console.log(dbArticle);
-        })
-        .catch(function(err) {
-          // If an error occurred, log it
-          console.log(err);
-        });
-    });
+//         var result = {
+//             image: image,
+//             link: link,
+//             author: author,
+//             abstract: abstract,
+//             timestamp: timestamp,
+//             title: title
+//         }
+// console.log(result)
+//       // Create a new Article using the `result` object built from scraping
+//       db.Article.create(result)
+//         .then(function(dbArticle) {
+//           // View the added result in the console
+//           console.log(dbArticle);
+//         })
+//         .catch(function(err) {
+//           // If an error occurred, log it
+//           console.log(err);
+//         });
+//     });
 
-    // Send a message to the client
-    // res.send("Scrape Complete");
-    res.render(path.join(__dirname, "views/pages/news.ejs"));
-  });
-});
+//     // Send a message to the client
+//     // res.send("Scrape Complete");
+//     res.render(path.join(__dirname, "views/pages/news.ejs"));
+//   });
+// });
 
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
