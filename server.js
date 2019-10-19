@@ -9,7 +9,7 @@ var path = require("path");
 // var cheerio = require("cheerio");
 
 // Require all models
-var db = require("./models");
+// var db = require("./models");
 
 var PORT = process.env.PORT || 8080;
 
@@ -121,53 +121,53 @@ app.get("/scrape", function(req, res) {
 // });
 
 // Route for getting all Articles from the db
-app.get("/articles", function(req, res) {
-  db.Article.find({}).then(function(dbArticle){
-    res.json(dbArticle)
-  })
-  .catch(function(err){
-    res.json(err)
-  })
-  // TODO: Finish the route so it grabs all of the articles
-});
+// app.get("/articles", function(req, res) {
+//   db.Article.find({}).then(function(dbArticle){
+//     res.json(dbArticle)
+//   })
+//   .catch(function(err){
+//     res.json(err)
+//   })
+//   // TODO: Finish the route so it grabs all of the articles
+// });
 
 // Route for grabbing a specific Article by id, populate it with it's note
-app.get("/articles/:id", function(req, res) {
+// app.get("/articles/:id", function(req, res) {
 
-  db.Article.findOne({_id:req.params.id})
-  .populate("note")
-  .then(function(dbArticle){
-    res.json(dbArticle)
-  })
-  .catch(function(err){
-    res.json(err)
-  })
+//   db.Article.findOne({_id:req.params.id})
+//   .populate("note")
+//   .then(function(dbArticle){
+//     res.json(dbArticle)
+//   })
+//   .catch(function(err){
+//     res.json(err)
+//   })
   // TODO
   // ====
   // Finish the route so it finds one article using the req.params.id,
   // and run the populate method with "note",
   // then responds with the article with the note included
-});
+// });
 
 // Route for saving/updating an Article's associated Note
-app.post("/articles/:id", function(req, res) {
-db.Note.create(req.body)
-.then(function(newNote){
-  return db.Article.findOneAndUpdate({_id: req.params.id}, {note: newNote._id}, {new: true})
-})
-.then(function(dbArticle){
-  res.json(dbArticle)
-}).catch(function(err){
-  res.json(err)
-})
+// app.post("/articles/:id", function(req, res) {
+// db.Note.create(req.body)
+// .then(function(newNote){
+//   return db.Article.findOneAndUpdate({_id: req.params.id}, {note: newNote._id}, {new: true})
+// })
+// .then(function(dbArticle){
+//   res.json(dbArticle)
+// }).catch(function(err){
+//   res.json(err)
+// })
   // TODO
   // ====
   // save the new note that gets posted to the Notes collection
   // then find an article from the req.params.id
   // and update it's "note" property with the _id of the new note
-});
+// });
 
-app.post("/favorites/:id", function(req, res) {
+// app.post("/favorites/:id", function(req, res) {
   // db.Favorite.create(req.body)
   // .then(function(newNote){
   //   return db.Favorite.findOneAndUpdate({_id: req.params.id}, {article: newNote._id}, {new: true})
@@ -177,17 +177,17 @@ app.post("/favorites/:id", function(req, res) {
   // }).catch(function(err){
   //   res.json(err)
   // })
-  db.Favorite.insert()
-  .then(function() {
-    var favArticle = {article: req.params.id}
-    // View the added result in the console
+  // db.Favorite.insert()
+  // .then(function() {
+  //   var favArticle = {article: req.params.id}
+  //   // View the added result in the console
     
-    console.log(favArticle);
-  })
-  .catch(function(err) {
-    // If an error occurred, log it
-    console.log(err);
-  });
+  //   console.log(favArticle);
+  // })
+  // .catch(function(err) {
+  //   // If an error occurred, log it
+  //   console.log(err);
+  // });
     // TODO
     // ====
     // save the new note that gets posted to the Notes collection
