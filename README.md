@@ -1,5 +1,7 @@
 # Health Budget Buddy
 
+[https://healthbudgetbuddy.herokuapp.com/](https://healthbudgetbuddy.herokuapp.com/)
+
 In today's world, we put a new-found high value on our physical and mental health. A large part of this comes from the food we consume. But with how busy our lives our, how do we make sure we're eating the fruits and vegetables we need?
 
 _Better yet, how do we even afford these things?_
