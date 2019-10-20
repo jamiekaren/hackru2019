@@ -31,7 +31,7 @@ app.use(express.static("public"));
 
 // Routes
 app.get("/", function (req, res) {
-  res.render(path.join(__dirname, "views/pages/index.ejs"));
+  res.render(path.join(__dirname, "views/pages/search.ejs"));
 })
 // app.get("/news", function (req, res) {
 //   res.render(path.join(__dirname, "views/pages/news.ejs"));
@@ -80,12 +80,14 @@ app.listen(PORT, function() {
 
 // console.log(req.body)
 let sms;
+let phone;
 // res.send(JSON.parse(sms))
 // })
 app.post("/api/sms", function(req, res) {
   console.log(req.body)
   console.log(req.body.message)
   sms = req.body.message
+  phone = req.body.phone
   // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
   // It will do this by sending out the value "true" have a table
   // req.body is available since we're using the body parsing middleware
@@ -107,7 +109,7 @@ var client = new twilio(accountSid, authToken);
 
 client.messages.create({
     body: sms,
-    to: '7327427021',  // Text this number
+    to: phone,  // Text this number
     from: '12055832299' // From a valid Twilio number
 })
 .then((message) => console.log(message.sid));
