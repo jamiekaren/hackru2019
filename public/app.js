@@ -1,13 +1,4 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//   var elems = document.querySelectorAll('.sidenav');
-//   var instances = M.Sidenav.init(elems, options);
-// });
 
-// // Or with jQuery
-
-// $(document).ready(function(){
-//   $('.sidenav').sidenav();
-// });
 
 const foods = [
 
@@ -204,22 +195,3 @@ function displayResults(newCardDiv, card, day) {
 
 }
 
-// const cardGroup = $(".card-group")
-// const newCardContainer = $("<div>").addClass("row")
-// const newNote = $('<div>').addClass("notes")
-// const newPostCard = $('<div>').addClass("card")
-// const newPostTitle = $("<h5>").addClass('card-title');
-// const newCardBody = $("<div>").addClass("card-body");
-// const newPostPrice = $("<p>").addClass('card-text');
-// const newPostDay = $("<p>").addClass('card-text');
-// newPostTitle.text(currentItem.name)
-// newPostDay.text(day)
-// newPostPrice.text(currentItem.price_lb)
-// newCardBody.append(newPostDay)
-// newCardBody.append(newPostTitle)
-
-// newCardBody.append(newPostPrice)
-// newPostCard.append(newCardBody)
-// newCardContainer.append(newPostCard)
-// newCardContainer.append(newNote)
-// cardGroup.append(newCardContainer)
