@@ -29,11 +29,6 @@ const foods = [
       price_cup: 0.28,
       conversion: 0.331
     },
-    mixed_berries = {
-      name: "mixed berries",
-      price_lb: 3.64,
-      price_cup: 1.20
-    },
   blackberries = {
     name: "blackberries",
     price_lb: 5.66,
@@ -123,6 +118,7 @@ const foods = [
 
 let total = 0
 let listOfItems = []
+let count = 0
 
 
 
@@ -134,25 +130,54 @@ for (i=0; i <= foods.length; i++) {
   // our current total cost is less than or equal to our budget 
     if (total <= budget) {
   // set our currentItem and Current price variables
-    let currentItem = ("item",foods[Math.floor((Math.random(i) * foods.length))])
+  let indexNumber = Math.floor((Math.random(i) * foods.length))
+ 
+    let currentItem = foods[indexNumber]
     let currentPrice = currentItem.price_lb
 
 // Then if our list of items array does not already include current item, then push and add price of current item
        if (!listOfItems.includes(currentItem)) {
+ 
         listOfItems.push(currentItem)
+        // displayResults(currentItem);
         total+=currentPrice
        }
  
-    console.log("--------------------------------------")
-    console.log(currentItem, currentPrice)
-    console.log("--------------------------------------")
-    console.log("total",total)
-    console.log("--------------------------------------")
-    console.log("listOfItems",listOfItems)
+    // console.log("--------------------------------------")
+    // console.log(currentItem, currentPrice)
+    // console.log("--------------------------------------")
+    // console.log("total",total)
+    // console.log("--------------------------------------")
+    // console.log("listOfItems",listOfItems)
   }
 }
-alert(total)
+itemPerDay()
 }
+
+function itemPerDay() {
+  let weeklyAmount = listOfItems.length
+  let dailyAmount = weeklyAmount/5
+  let arrayofdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+  
+  for (i=0; i < dailyAmount; i++) {
+    let day = arrayofdays[i]
+    console.log("entire list of items",listOfItems)
+// this variable will store our first day of the week
+let itemsForDay= listOfItems.filter(item => listOfItems.indexOf(item) < dailyAmount)
+// we want to send this to cards.
+let newCardDiv = $("<div>").addClass("card")
+$(".card-group").append(newCardDiv)
+displayResults(newCardDiv,itemsForDay,day);
+// displayResults(itemsForDay.map(item => $(".card-group").append($('<p>' + item.name + '<p>'))))
+
+listOfItems = listOfItems.filter(item => !(listOfItems.indexOf(item) < dailyAmount))
+console.log("should be array of a few times",itemsForDay)
+// displayResults(itemsForDay)
+// let tuesday = listOfItems.filter(item => item.indexOf() < dailyAmount)
+  }
+// displayResults(itemPerDay)
+}
+
 
 $("#submit").on("click", function getBudgetInput(event) {
   event.preventDefault()
@@ -161,3 +186,36 @@ $("#submit").on("click", function getBudgetInput(event) {
 })
 
 
+
+function displayResults(newCardDiv,card,day) {
+
+  let example = card;
+console.log(example)
+  
+let dayLabel = $('<p>').text(day)
+newCardDiv.append(dayLabel)
+newCardDiv.append(example.map(item =>('<p>' + item.name + '<p>')));
+ 
+
+
+
+// const cardGroup = $(".card-group")
+// const newCardContainer = $("<div>").addClass("row")
+// const newNote = $('<div>').addClass("notes")
+// const newPostCard = $('<div>').addClass("card")
+// const newPostTitle = $("<h5>").addClass('card-title');
+// const newCardBody = $("<div>").addClass("card-body");
+// const newPostPrice = $("<p>").addClass('card-text');
+// const newPostDay = $("<p>").addClass('card-text');
+// newPostTitle.text(currentItem.name)
+// newPostDay.text(day)
+// newPostPrice.text(currentItem.price_lb)
+// newCardBody.append(newPostDay)
+// newCardBody.append(newPostTitle)
+
+// newCardBody.append(newPostPrice)
+// newPostCard.append(newCardBody)
+// newCardContainer.append(newPostCard)
+// newCardContainer.append(newNote)
+// cardGroup.append(newCardContainer)
+}
