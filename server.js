@@ -1,6 +1,7 @@
 var express = require("express");
 var logger = require("morgan");
 // var twilio = require('twilio');
+let currentSMSDataObject;
 
 // var mongoose = require("mongoose");
 var path = require("path");
@@ -68,17 +69,47 @@ app.listen(PORT, function() {
 })
 
 
+// app.post("/api/sms", function(req, res) {
+// currentSMSDataObject = {
+// message: req.body.message
+// }
+
+// sms = currentSMSDataObject.message
+
+
+
+// console.log(req.body)
+let sms;
+// res.send(JSON.parse(sms))
+// })
+app.post("/api/sms", function(req, res) {
+  console.log(req.body)
+  console.log(req.body.message)
+  sms = req.body.message
+  // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
+  // It will do this by sending out the value "true" have a table
+  // req.body is available since we're using the body parsing middleware
+  
+    res.json(true);
+    sendSMS()
+});
+
+function sendSMS() {
+var twilio = require('twilio');
 // Download the helper library from https://www.twilio.com/docs/node/install
 // Your Account Sid and Auth Token from twilio.com/console
 // DANGER! This is insecure. See http://twil.io/secure
-const accountSid = 'AC94771f0c446f95d3cb523b2aa5f93e49';
-const authToken = '8676208e090854581a2d003b163f9c8b';
-const client = require('twilio')(accountSid, authToken);
+var accountSid = 'AC94771f0c446f95d3cb523b2aa5f93e49'; // Your Account SID from www.twilio.com/console
+var authToken = '8676208e090854581a2d003b163f9c8b';   // Your Auth Token from www.twilio.com/console
 
-client.messages
-  .create({
-     body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
-     from: '12055832299',
-     to: '7327427021'
-   })
-  .then(message => console.log(message.sid));
+var twilio = require('twilio');
+var client = new twilio(accountSid, authToken);
+
+client.messages.create({
+    body: sms,
+    to: '7327427021',  // Text this number
+    from: '12055832299' // From a valid Twilio number
+})
+.then((message) => console.log(message.sid));
+
+}

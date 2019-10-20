@@ -110,6 +110,7 @@ const foods = [
 let total = 0
 let listOfItems = []
 let count = 0
+let listOfItemsSMS = []
 
 
 
@@ -150,10 +151,11 @@ function itemPerDay() {
   let dailyAmount = weeklyAmount / 5;
   console.log("Daily Amount", dailyAmount);
   let arrayofdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-
+listOfItemsSMS = listOfItems
   for (i = 0; i < 5; i++) {
 
     console.log("Current list of budgeted array", listOfItems);
+  
     // this variable will store our first day of the week
 
     let itemsForDay = listOfItems.filter(item => listOfItems.indexOf(item) < dailyAmount)
@@ -177,6 +179,7 @@ $("#submit").on("click", function getBudgetInput(event) {
   event.preventDefault()
   let budget = $("#budget").val().trim()
   getFood(budget)
+  sendSMS(budget)
 })
 
 
@@ -195,3 +198,39 @@ function displayResults(newCardDiv, card, day) {
 
 }
 
+
+function sendSMS(budget) {
+  // let listOfItemsSMSbeforeCommas = listOfItemsSMS.filter(item => listOfItemsSMSbeforeCommas.indexOf(item) < listOfItemsSMSbeforeCommas.length)
+  // let listOfItemsSMSafterCommas = listOfItemsSMS.filter(item => listOfItemsSMSbeforeCommas.indexOf(item) === listOfItemsSMSbeforeCommas.length)
+
+  let stringSMS = {
+  
+    message:
+     "With a budget of,  $" + budget + " , you can afford to buy at least " + listOfItemsSMS.map(item => item.name + " ")
+    // "nice budget there, " + budget + " lol"
+    // + listOfItemsSMSbeforeCommas.map(item => item + ", ") + " and " + listOfItemsSMSafterCommas 
+  }
+$.post("/api/sms", stringSMS,
+      function(data) {
+
+        // If a table is available... tell user they are booked.
+        if (data) {
+          alert("Yay! sms delivering!");
+          console.log("data: " + data)
+         
+        }
+        
+      });
+    }
+
+// $.ajax({ url: "/api/sms", method: "GET" })
+// .then(function(stringSMS) {
+
+//   // Here we then log the tableData to console, where it will show up as an object.
+//   console.log(stringSMS);
+//   console.log("------------------------------------");
+
+ 
+// });
+
+  
