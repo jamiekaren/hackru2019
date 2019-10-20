@@ -219,3 +219,21 @@ newCardDiv.append(example.map(item =>('<p>' + item.name + '<p>')));
 // newCardContainer.append(newNote)
 // cardGroup.append(newCardContainer)
 }
+
+
+$.ajax({
+  async: true,
+  crossDomain: true,
+  url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
+  method: 'POST',
+  headers: {
+  "x-app-id": '00d5e5aa',
+  "x-app-key": '39883c1d04ab200e7350022a4af94d62',
+  "Content-Type":application/x-www-form-urlencoded
+  },
+  processData: true,
+  data: {
+  query: 'apple',
+  
+  }, success: function(response,text,xhr) { console.log(response); console.log(text) ;console.log(xhr) }, error:function (textstatus){ console.log(textstatus); } });
+  // This is the Standard Calling API SYNTAX!

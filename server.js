@@ -1,5 +1,7 @@
 var express = require("express");
 var logger = require("morgan");
+// var twilio = require('twilio');
+
 // var mongoose = require("mongoose");
 var path = require("path");
 // Our scraping tools
@@ -64,3 +66,19 @@ app.get("/favorites", function(req,res) {
 app.listen(PORT, function() {
   console.log("Server listening on: http://localhost:" + PORT)
 })
+
+
+// Download the helper library from https://www.twilio.com/docs/node/install
+// Your Account Sid and Auth Token from twilio.com/console
+// DANGER! This is insecure. See http://twil.io/secure
+const accountSid = 'AC94771f0c446f95d3cb523b2aa5f93e49';
+const authToken = '8676208e090854581a2d003b163f9c8b';
+const client = require('twilio')(accountSid, authToken);
+
+client.messages
+  .create({
+     body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+     from: '12055832299',
+     to: '7327427021'
+   })
+  .then(message => console.log(message.sid));
