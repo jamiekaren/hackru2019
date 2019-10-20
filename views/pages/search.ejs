@@ -4,6 +4,7 @@
   <title>Log in Form</title>
   <!-- <link rel="stylesheet" href="css/normalize.css"> -->
   <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="signup.css">
   
   <script
@@ -14,22 +15,47 @@
 
 <% include ../partials/navbar %>
   <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
     <form action="index.html" method="post">
   
-      <h1>Your Info</h1>
+      <h1>Veggie-Up!<span> <i class="fas fa-leaf"></i>
+       </span></h1>
       
       <fieldset>
-        <label for="budget">Budget</label>
+          <div class="form-group">
+        <label for="budget">Your budget</label>
         <input placeholder="Ex. 20.00" type="text" id="budget" name="budget">
+      </div>
+        <div class="form-group">
+        <label for="phone">Phone number</label>
+        <input placeholder="Optional" type="text" id="phone" name="phone">
+        <small id="emailHelp" class="form-text text-muted">Enter to have results texted to your phone. We'll never share your phone number with anyone else.</small>
+        </div>
      
       </fieldset>
       
       <button id="submit" type="submit">Submit</button>
     </form>
-
-    <div class="card-group">
-      
+  </div>
+    
+  <div class="col">
+    <div class="card" style="width: 22rem;">
+      <div id="wholeList" class="card-body">
+        <h5 class="card-title">
+          Fruits and Vegetables You Can Buy This Week
+        </h5>
+      </div>
     </div>
+  </div>
+</div>
+</div>
+<div class="container-fluid">
+    <div class="card-group">
+      </div>
+    </div>
+
   
   
   
